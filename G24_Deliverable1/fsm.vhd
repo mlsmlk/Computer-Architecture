@@ -68,6 +68,9 @@ begin
 			if input = SLASH_CHARACTER then 
 				state <= FINAL;
 				output <= '1';
+			elsif input = STAR_CHARACTER  then
+				state <= STATE_4;
+				output <= '1';
 			else
 				state <= STATE_3;
 				output <= '1';

@@ -17,7 +17,7 @@ architecture behavioral of comments_fsm is
 constant SLASH_CHARACTER : std_logic_vector(7 downto 0) := "00101111";
 constant STAR_CHARACTER : std_logic_vector(7 downto 0) := "00101010";
 constant NEW_LINE_CHARACTER : std_logic_vector(7 downto 0) := "00001010";
-type STATES is (IDLE,STATE_1,STATE_2,STATE_3,STATE_4,FINAL);
+type STATES is (IDLE,STATE_1,STATE_2,STATE_3,STATE_4);
 signal state: STATES;
 
 begin
@@ -50,7 +50,7 @@ begin
 			end if;
 		when STATE_2 =>
 			if input = NEW_LINE_CHARACTER then
-				state <= FINAL;
+				state <= IDLE;
 				output <= '1';
 			else
 				state <= STATE_2;
@@ -66,7 +66,7 @@ begin
 			end if;
 		when STATE_4 =>
 			if input = SLASH_CHARACTER then 
-				state <= FINAL;
+				state <= IDLE;
 				output <= '1';
 			elsif input = STAR_CHARACTER  then
 				state <= STATE_4;
@@ -75,8 +75,7 @@ begin
 				state <= STATE_3;
 				output <= '1';
 			end if;
-		when  FINAL =>
-			state <= IDLE;
+
 end case;
 
 end if;

@@ -14,7 +14,7 @@ Z1 w1611999528
 Z2 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
 Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
 Z4 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
-!i122 99
+!i122 148
 R0
 Z5 8fsm.vhd
 Z6 Ffsm.vhd
@@ -24,9 +24,9 @@ VO0]aFJQL^_=a7<L@diSJ[1
 !s100 8=ZD8]48;k_fm406>Zj^M1
 Z7 OV;C;2020.1;71
 32
-Z8 !s110 1612000552
+Z8 !s110 1612009913
 !i10b 1
-Z9 !s108 1612000552.000000
+Z9 !s108 1612009913.000000
 Z10 !s90 -reportprogress|300|fsm.vhd|
 Z11 !s107 fsm.vhd|
 !i113 1
@@ -36,7 +36,7 @@ R2
 R3
 R4
 DEx4 work 12 comments_fsm 0 22 O0]aFJQL^_=a7<L@diSJ[1
-!i122 99
+!i122 148
 l23
 L14 72
 V36c3GYz:Z3OEl:^0WFL;V3
@@ -51,10 +51,10 @@ R11
 !i113 1
 R12
 Efsm_tb
-Z13 w1612000531
+Z13 w1612009822
 R3
 R4
-!i122 100
+!i122 149
 R0
 Z14 8fsm_tb.vhd
 Z15 Ffsm_tb.vhd
@@ -74,18 +74,18 @@ R12
 Abehaviour
 R3
 R4
-DEx4 work 6 fsm_tb 0 22 TLJfDBz]5fkDA74AdBjcH2
-!i122 100
+Z17 DEx4 work 6 fsm_tb 0 22 TLJfDBz]5fkDA74AdBjcH2
+!i122 149
 l26
-Z17 L7 343
-VY6^Yd@cZd6DCHW@?dh=?A1
-Z18 !s100 0PcYRb`QQPf1ZI7A]12?60
+Z18 L7 411
+Z19 VdMX0;cHoBMkFJR;5IY2^80
+Z20 !s100 BFKC563FZ9m7IFhLVYQ5[2
 R7
 32
 R8
 !i10b 1
 R9
 R16
-Z19 !s107 fsm_tb.vhd|
+Z21 !s107 fsm_tb.vhd|
 !i113 1
 R12

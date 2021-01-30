@@ -182,19 +182,40 @@ BEGIN
 	ASSERT (s_output = '1') REPORT "Accumulated input: /**r*/ | output: 1" SEVERITY ERROR;
 	REPORT "_______________________";
 	
--- Test case 6: /random character
-	
-	REPORT "Test case 6: /r";
+-- Test case 6: /random character//random character\n
+
+	REPORT "Test case 6: /r//r\n";
 	REPORT "Accumulated input: /";
 	s_input <= "00101111";	--/
 	WAIT FOR 1 * clk_period;
 	ASSERT (s_output = '0') REPORT "Accumulated input: / | output: 0" SEVERITY ERROR;
 	
-	REPORT "Test case 6: Accumulated input: /r";
+	REPORT "Test case 6: Accumulated input: /r";	
 	s_input <= "01011000";	--r
 	WAIT FOR 1 * clk_period;
-	ASSERT (s_output = '0') REPORT "Accumulated input: /r | output: 0" SEVERITY ERROR;
+	ASSERT (s_output = '0') REPORT "Accumulated input: //r | output: 1" SEVERITY ERROR;
+
+	REPORT "Test case 6: Accumulated input: /r/";
+	s_input <= "00101111";	--/
+	WAIT FOR 1 * clk_period;
+	ASSERT (s_output = '0') REPORT "Accumulated input: // | output: 0" SEVERITY ERROR;
+
+	REPORT "Test case 6: Accumulated input: /r//";
+	s_input <= "00101111";	--/
+	WAIT FOR 1 * clk_period;
+	ASSERT (s_output = '0') REPORT "Accumulated input: // | output: 0" SEVERITY ERROR;
+	
+	REPORT "Test case 6: Accumulated input: /r//r";	
+	s_input <= "01011000";	--r
+	WAIT FOR 1 * clk_period;
+	ASSERT (s_output = '1') REPORT "Accumulated input: //r | output: 1" SEVERITY ERROR;
+	
+	REPORT "Test case 6: Accumulated input: //r\n";
+	s_input <= "00001010";	--\n
+	WAIT FOR 1 * clk_period;
+	ASSERT (s_output = '1') REPORT "Accumulated input: //r\n | output: 1" SEVERITY ERROR;
 	REPORT "_______________________";
+
 	
 -- Test case 7: /***/
 

@@ -28,6 +28,7 @@ port(
 end cache;
 
 architecture arch of cache is
+signal clock,reset :std_logic := '0';
 --Define states
 type states is (idle,c_read,c_write,mm_write,mm_read,mm_wait,writeback);
 signal state: states;
@@ -142,9 +143,9 @@ begin
 				s_readdata <= c(index)(127 downto 0)((offset * 32) - 1 downto 32 * (offset - 1)); --return data from given address of cache
 				c(index)(152 downto 128) <= s_addr(31 downto 7);  --Set tag of cache to given tag
 				word := 0; --reset counter
-				state <= initial;		--operation ends switch to idle
+				state <= idle;		--operation ends switch to idle
 			else
-				state <= mm_wait --wait until main memory is available
+				state <= mm_wait; --wait until main memory is available
 			end if;
 
 
@@ -157,7 +158,7 @@ begin
 				c(index)(127 downto 0)((offset * 32) - 1 downto 32 * (offset - 1)) <= s_writedata; --Write data to given address of cache
 				c(index)(152 downto 128) <= s_addr(31 downto 7);  --Set tag of cache to given tag
 				
-				s_waitrequest <= '0'		--set waitrequest to low since the process is done
+				s_waitrequest <= '0';		--set waitrequest to low since the process is done
 				state <= idle;			--return reading
 			elsif word < 4 and m_waitrequest ='1' then --If the word count has not reached and main memory is ready to receving request
 				address := c(index)(135 downto 128) & s_addr (6 downto 0); --Build adress for main memory and prepare necessary variables for writing the data

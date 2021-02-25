@@ -108,8 +108,8 @@ begin
 				state <= mm_read;		--wait main memory to be ready
 			end if;
 
-		when mm_write =>
-		when mm_wait =>
+		when m_write =>
+		when m_wait =>
 		when writeback =>
 	end case;
 end if;

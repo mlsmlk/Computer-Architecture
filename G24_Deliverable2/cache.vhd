@@ -29,7 +29,7 @@ end cache;
 
 architecture arch of cache is
 --Define states
-type states is (idle,c_read,c_write,mm_write,mm_read,mm_wait);
+type states is (idle,c_read,c_write,mm_write,mm_read,mm_wait,writeback);
 signal state: states;
 
 -- Define cache
@@ -126,6 +126,27 @@ begin
 			end if;
 
 		when mm_wait =>
+			if word < 4 and m_waitrequest = '0' then
+				c(index)(127 downto 0)((word * 8) + 7 + 32*(offset - 1) downto (word*8) + 32*(offset - 1)) <= m_readdata; --Write data to main memory
+				word := word + 1;
+				m_read <= '0';
+				if word = 3 then
+					state <= mm_wait;
+				else
+					state <= mm_read;
+				end if;
+			elsif word = 4 then
+				--Write into cache
+				c(index)(153) <= '1'; 		--Set valid flag to 1
+				c(index) (154) <= '0';		--Set dirty flag to 0 since its modification ends
+				s_readdata <= c(index)(127 downto 0)((offset * 32) - 1 downto 32 * (offset - 1)); --return data from given address of cache
+				c(index)(152 downto 128) <= s_addr(31 downto 7);  --Set tag of cache to given tag
+				word := 0; --reset counter
+				state <= idle;		--operation ends switch to idle
+			else
+				state <= mm_wait; --wait until main memory is available
+			end if;
+
 
 		when writeback =>
 			if word = 4 then			--If the word count reaches to the limit (4 word per block)
@@ -136,7 +157,7 @@ begin
 				c(index)(127 downto 0)((offset * 32) - 1 downto 32 * (offset - 1)) <= s_writedata; --Write data to given address of cache
 				c(index)(152 downto 128) <= s_addr(31 downto 7);  --Set tag of cache to given tag
 				
-				s_waitrequest <= '0'		--set waitrequest to low since the process is done
+				s_waitrequest <= '0';		--set waitrequest to low since the process is done
 				state <= idle;			--return reading
 			elsif word < 4 and m_waitrequest ='1' then --If the word count has not reached and main memory is ready to receving request
 				address := c(index)(135 downto 128) & s_addr (6 downto 0); --Build adress for main memory and prepare necessary variables for writing the data

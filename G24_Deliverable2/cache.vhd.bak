@@ -28,7 +28,6 @@ port(
 end cache;
 
 architecture arch of cache is
-signal clock,reset :std_logic := '0';
 --Define states
 type states is (idle,c_read,c_write,mm_write,mm_read,mm_wait,writeback);
 signal state: states;

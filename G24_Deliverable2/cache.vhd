@@ -166,7 +166,7 @@ begin
 				m_read <= '0';
 				m_writedata <= c(index)(127 downto 0)((word * 8) + 7 + 32*(offset - 1) downto (word*8) + 32*(offset - 1)); --Write data to main memory
 				word := word + 1; --increase counter since one more word is written into main memory
-				state <= mm_write; --stay in this state until word limit has reached
+				state <= writeback; --stay in this state until word limit has reached
 			else	--wait until main memory is ready for receving request
 				m_write <= '0';	
 				state <= writeback;

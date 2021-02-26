@@ -76,9 +76,9 @@ begin
 						s_readdata <= c(index)(127 downto 0) ((offset * 32) -1 downto 32*(offset-1));
 						s_waitrequest <= '0';
 						state <= idle; 
-					else 			--If it is a miss
-						state <= mm_read;	--read data from main memory
 					end if;
+				else 			--If it is a miss
+					state <= mm_read;	--read data from main memory
 				end if;
 			else					--Continue reading
 				state <= c_read;
@@ -128,11 +128,12 @@ begin
 		when mm_wait =>
 			if word < 4 and m_waitrequest = '0' then
 				c(index)(127 downto 0)((word * 8) + 7 + 32*(offset - 1) downto (word*8) + 32*(offset - 1)) <= m_readdata; --Write data to main memory
-				word := word + 1;
 				m_read <= '0';
 				if word = 3 then
+					word := word + 1;
 					state <= mm_wait;
 				else
+					word := word + 1;
 					state <= mm_read;
 				end if;
 			elsif word = 4 then
@@ -142,6 +143,7 @@ begin
 				s_readdata <= c(index)(127 downto 0)((offset * 32) - 1 downto 32 * (offset - 1)); --return data from given address of cache
 				c(index)(152 downto 128) <= s_addr(31 downto 7);  --Set tag of cache to given tag
 				word := 0; --reset counter
+				s_waitrequest <= '0';
 				state <= idle;		--operation ends switch to idle
 			else
 				state <= mm_wait; --wait until main memory is available

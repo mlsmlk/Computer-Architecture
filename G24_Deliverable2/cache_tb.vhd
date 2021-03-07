@@ -123,133 +123,133 @@ begin
 -- 4. Invalid, dirty, write, miss(Invalid^dirty==>impossible)
 -- 5. Invalid, clean, read, hit	(Invalid^hit==>impossible)
 -- 6. Invalid, clean, read, miss
---	s_addr <= "00000000000000000000000000000001";                        
---	s_read <= '1';                                                       
---	s_write <= '0';                                                      
---	wait until rising_edge(s_waitrequest);                               
---	s_read <= '0';                                                       
---	s_write <= '0'; 
---	wait for clk_period;
+	s_addr <= "00000000000000000000000000000001";                        
+	s_read <= '1';                                                       
+	s_write <= '0';                                                      
+	wait until rising_edge(s_waitrequest);                               
+	s_read <= '0';                                                       
+	s_write <= '0'; 
+	wait for clk_period;
 
 -- 7. Invalid, clean, write, hit	(Invalid^hit==>impossible)
 -- 8. Invalid, clean, write, miss
---	s_addr <= "00000000000000000000000000001000";
---	s_read <= '0';
---	s_write <= '1';
---	s_writedata <= x"000000BC";
---	wait until rising_edge(s_waitrequest);
---	s_read <= '0';
---	s_write <= '0';
---	wait for clk_period;
+	s_addr <= "00000000000000000000000000001000";
+	s_read <= '0';
+	s_write <= '1';
+	s_writedata <= x"000000BC";
+	wait until rising_edge(s_waitrequest);
+	s_read <= '0';
+	s_write <= '0';
+	wait for clk_period;
 	
 -- 9. Valid, clean, read, hit
---	s_addr <= "00000000000000000000111111111111";                        
---	s_write <= '1';                                                      
---	s_writedata <= x"000F000A";                                          
---	wait until rising_edge(s_waitrequest);                               
---	s_read <= '1';                                                       
---	s_write <= '0';                                                      
---	wait until rising_edge(s_waitrequest);                               
---	s_read <= '0';                                                       
---	s_write <= '0'; 
---	wait for clk_period;
+	s_addr <= "00000000000000000000111111111111";                        
+	s_write <= '1';                                                      
+	s_writedata <= x"000F000A";                                          
+	wait until rising_edge(s_waitrequest);                               
+	s_read <= '1';                                                       
+	s_write <= '0';                                                      
+	wait until rising_edge(s_waitrequest);                               
+	s_read <= '0';                                                       
+	s_write <= '0'; 
+	wait for clk_period;
 
 -- 10. Valid, clean, read, miss
---	s_addr <= "00000000000000000000000000001010";	
---	s_read <= '0';   
---	s_writedata <= x"000D000C";
---	s_write <= '1';                                                      
---	wait until rising_edge(s_waitrequest);  
---	s_addr <= "00000000000000000000000010001010";
---	s_read <= '1';
---	s_write <= '0';
---	wait until rising_edge(s_waitrequest);                               
---	s_read <= '0';                                                       
---	s_write <= '0'; 
---	wait for clk_period;
+	s_addr <= "00000000000000000000000000001010";	
+	s_read <= '0';   
+	s_writedata <= x"000D000C";
+	s_write <= '1';                                                      
+	wait until rising_edge(s_waitrequest);  
+	s_addr <= "00000000000000000000000010001010";
+	s_read <= '1';
+	s_write <= '0';
+	wait until rising_edge(s_waitrequest);                               
+	s_read <= '0';                                                       
+	s_write <= '0'; 
+	wait for clk_period;
 	
 
 -- 11. Valid, clean, write, hit
---	s_addr <= "00000000000000000000000000001011";	
---	s_read <= '0';                         
---	s_writedata <= x"000F000C";
---	s_write <= '1';                                                      
---	wait until rising_edge(s_waitrequest);                               
---	s_write <= '1';
---	s_read <= '0';
---	s_writedata <= x"0000000B";
---	wait until rising_edge(s_waitrequest);                               
---	s_write <= '0';
---	s_read <= '0';
---	wait for clk_period;
+	s_addr <= "00000000000000000000000000001011";	
+	s_read <= '0';                         
+	s_writedata <= x"000F000C";
+	s_write <= '1';                                                      
+	wait until rising_edge(s_waitrequest);                               
+	s_write <= '1';
+	s_read <= '0';
+	s_writedata <= x"0000000B";
+	wait until rising_edge(s_waitrequest);                               
+	s_write <= '0';
+	s_read <= '0';
+	wait for clk_period;
 
 -- 12. Valid, clean, write, miss
---	s_addr <= "00000000000000000000000000001101";	
---	s_read <= '0';                         
---	s_writedata <= x"000F000C";
---	s_write <= '1';                                                      
---	wait until rising_edge(s_waitrequest); 
---	s_addr <= "00000000000000000000100000001101";
---	s_write <= '1';
---	s_read <= '0';
---	s_writedata <= x"0000000B";
---	wait until rising_edge(s_waitrequest);                               
---	s_write <= '0';
---	s_read <= '0';
---	wait for clk_period;
+	s_addr <= "00000000000000000000000000001101";	
+	s_read <= '0';                         
+	s_writedata <= x"000F000C";
+	s_write <= '1';                                                      
+	wait until rising_edge(s_waitrequest); 
+	s_addr <= "00000000000000000000100000001101";
+	s_write <= '1';
+	s_read <= '0';
+	s_writedata <= x"0000000B";
+	wait until rising_edge(s_waitrequest);                               
+	s_write <= '0';
+	s_read <= '0';
+	wait for clk_period;
 
 -- 13. Valid, dirty, read, hit
---	s_addr <= "00000000000000000000000000001100";
---	s_read <= '0';   
---	s_writedata <= x"000F00BC";
---	s_write <= '1'; 
---	wait until rising_edge(s_waitrequest); 
---	s_read <= '0';   
---	s_writedata <= x"000F00BA";
---	s_write <= '1'; 
---	wait until rising_edge(s_waitrequest); 	-- write hit, dirty
---	s_read <= '1';
---	s_write <= '0';
---	wait until rising_edge(s_waitrequest); 
---	s_write <= '0';
---	s_read <= '0';
---	wait for clk_period;
+	s_addr <= "00000000000000000000000000001100";
+	s_read <= '0';   
+	s_writedata <= x"000F00BC";
+	s_write <= '1'; 
+	wait until rising_edge(s_waitrequest); 
+	s_read <= '0';   
+	s_writedata <= x"000F00BA";
+	s_write <= '1'; 
+	wait until rising_edge(s_waitrequest); 	-- write hit, dirty
+	s_read <= '1';
+	s_write <= '0';
+	wait until rising_edge(s_waitrequest); 
+	s_write <= '0';
+	s_read <= '0';
+	wait for clk_period;
 
 -- 14. Valid, dirty, read, miss
---	s_addr <= "00000000000000000000000000001110";
---	s_read <= '0';   
---	s_writedata <= x"000F00BF";
---	s_write <= '1';
---	wait until rising_edge(s_waitrequest); 
---	s_read <= '0';   
---	s_writedata <= x"000F00BF";
---	s_write <= '1';
---	wait until rising_edge(s_waitrequest); 
---	s_addr <= "00000000000000000000000010001110";
---	s_read <= '1';
---	s_write <= '0';
---	wait until rising_edge(s_waitrequest); 
---	s_write <= '0';
---	s_read <= '0';
---	wait for clk_period;	
+	s_addr <= "00000000000000000000000000001110";
+	s_read <= '0';   
+	s_writedata <= x"000F00BF";
+	s_write <= '1';
+	wait until rising_edge(s_waitrequest); 
+	s_read <= '0';   
+	s_writedata <= x"000F00BF";
+	s_write <= '1';
+	wait until rising_edge(s_waitrequest); 
+	s_addr <= "00000000000000000000000010001110";
+	s_read <= '1';
+	s_write <= '0';
+	wait until rising_edge(s_waitrequest); 
+	s_write <= '0';
+	s_read <= '0';
+	wait for clk_period;	
 
 -- 15. Valid, dirty, write, hit
---	s_addr <= "00000000000000000000000000001111";
---	s_read <= '0';   
---	s_writedata <= x"000000BD";
---	s_write <= '1'; 
---	wait until rising_edge(s_waitrequest); 
---	s_read <= '0';   
---	s_writedata <= x"000F00BA";
---	s_write <= '1'; 
---	wait until rising_edge(s_waitrequest); 	-- write hit, dirty
---	s_read <= '0';
---	s_writedata <= x"000000BA";	-- write hit on the dirty
---	s_write <= '1';
---	wait until rising_edge(s_waitrequest); 
---	s_write <= '0';
---	s_read <= '0';
---	wait for clk_period;
+	s_addr <= "00000000000000000000000000001111";
+	s_read <= '0';   
+	s_writedata <= x"000000BD";
+	s_write <= '1'; 
+	wait until rising_edge(s_waitrequest); 
+	s_read <= '0';   
+	s_writedata <= x"000F00BA";
+	s_write <= '1'; 
+	wait until rising_edge(s_waitrequest); 	-- write hit, dirty
+	s_read <= '0';
+	s_writedata <= x"000000BA";	-- write hit on the dirty
+	s_write <= '1';
+	wait until rising_edge(s_waitrequest); 
+	s_write <= '0';
+	s_read <= '0';
+	wait for clk_period;
 
 -- 16. Valid, dirty, write, miss
 	s_addr <= "00000000000000000000000000001111";

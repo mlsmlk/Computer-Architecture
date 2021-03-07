@@ -138,11 +138,13 @@ begin
 				end if;
 			elsif word = 4 then
 				--Write into cache
-				c(index)(153) <= '1'; 		--Set valid flag to 1
-				c(index) (154) <= '0';		--Set dirty flag to 0 since its modification ends
+				c(index)(154) <= '1'; 		--Set valid flag to 1
+				c(index) (153) <= '0';		--Set dirty flag to 0 since its modification ends
 				s_readdata <= c(index)(127 downto 0)((offset * 32) - 1 downto 32 * (offset - 1)); --return data from given address of cache
 				c(index)(152 downto 128) <= s_addr(31 downto 7);  --Set tag of cache to given tag
 				word := 0; --reset counter
+				m_read <= '0';	-- reset m_read and m_write signals
+				m_write <= '0';
 				s_waitrequest <= '0';
 				state <= idle;		--operation ends switch to idle
 			else
@@ -160,6 +162,7 @@ begin
 				c(index)(152 downto 128) <= s_addr(31 downto 7);  --Set tag of cache to given tag
 				
 				s_waitrequest <= '0';		--set waitrequest to low since the process is done
+				m_write <= '0';
 				state <= idle;			--return reading
 			elsif word < 4 and m_waitrequest ='1' then --If the word count has not reached and main memory is ready to receving request
 				address := c(index)(135 downto 128) & s_addr (6 downto 0); --Build adress for main memory and prepare necessary variables for writing the data
